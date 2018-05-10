@@ -12,10 +12,10 @@ puts palabras()
 #2
 def busca (word)
   pelis = File.open "peliculas.txt"
-  lineas = pelis.read.split(' ')
+  palabras = pelis.read.split(' ')
   suma = 0
-  lineas.map do |v|
-     suma +=1 if v.downcase == word.downcase
+  palabras.map do |palabra|
+     suma +=1 if palabra.downcase == word.downcase
   end
   pelis.close
   suma
