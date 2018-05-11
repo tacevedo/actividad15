@@ -81,8 +81,38 @@ until opcion == 6 do
   when "4"
     # permite conocer los productos con una existencia total menor a un valor ingresado por el usuario.
 
+    puts "ingrese un valor y mostraremos los productos con menor existencia"
+    menora = gets.chomp.to_i
+    pro = data.each do |linea|
+    valor = linea.split(' ')
+      suma = 0
+      valor.each_with_index do |dato, i|
+        if i != 0 && dato != 'NR'
+          dato = dato.to_i
+          suma += dato
+        end
+      end
+
+      puts "#{valor[0]} = #{suma}\n" if suma < menora
+  end
+
   when "5"
     # permite registrar un nuevo producto con su respectivo stock en cada bodega. (Hint: abrir el archivo como append).
+    puts "ingrese nombre producto"
+    name = gets.chomp
+    puts "ingrese el numero para cantidad en bodega 1 (o NR para no registrado)"
+    bodega1 = gets.chomp
+    puts "ingrese el numero para cantidad en bodega 2 (o NR para no registrado)"
+    bodega2 = gets.chomp
+    puts "ingrese el numero para cantidad en bodega 3 (o NR para no registrado)"
+    bodega3 = gets.chomp
+
+    File.open( "productos.txt", "a"){ |f|
+      f.puts "#{name}, #{bodega1}, #{bodega2}, #{bodega3}\n"
+      puts "producto ingresado:  #{name}, #{bodega1}, #{bodega2}, #{bodega3}\n"
+      f.close
+    }
+
 
   when "6"
     puts 'Adios'
