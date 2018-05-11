@@ -15,7 +15,7 @@ until opcion == 6 do
       submenu = gets.chomp
       case submenu
       when "a"
-          # Mostrar la existencia por productos.
+        # Mostrar la existencia por productos.
         pro = data.each do |linea|
             valor = linea.split(' ')
             suma = 0
@@ -30,6 +30,19 @@ until opcion == 6 do
 
       when "b"
         # Mostrar la existencia total por tienda.
+        existencias = {"bodega1" => 0,"bodega2" => 0,"bodega3" => 0}
+        pro = data.each do |linea|
+            valor = linea.split(' ')
+            suma = 0
+            valor.each_with_index do |dato, i|
+
+               if i != 0 && dato != 'NR'
+                 dato = dato.to_i
+                 existencias["bodega#{i}"] +=  dato
+               end
+            end
+        end
+        puts existencias
 
       when "c"
         #) Mostrar la existencia total en todas las tiendas.
@@ -63,21 +76,32 @@ until opcion == 6 do
       valor = linea.gsub(',', '').split(' ')
       suma = 0
 
-      if valor[0] == productostock
+        if valor[0] == productostock
 
         valor.each_with_index do |dato, i|
           if i != 0 && dato != 'NR'
             dato = dato.to_i
             suma += dato
           end
-
         end
           puts "#{valor[0]} = #{suma}\n" if valor[0] == productostock
       end
   end
   when "3"
     # muestra los productos no registrados en cada bodega.
+    nr = {"bodega1" => 0,"bodega2" => 0,"bodega3" => 0}
+    pro = data.each do |linea|
+        valor = linea.split(' ')
+        suma = 0
+        valor.each_with_index do |dato, i|
 
+           if  dato == 'NR'
+
+             existencias["bodega#{i}"] = + "#{dato[0]} "
+           end
+        end
+    end
+    puts nr
   when "4"
     # permite conocer los productos con una existencia total menor a un valor ingresado por el usuario.
 
